@@ -42,7 +42,6 @@ public class LittleCircleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        x = y = 500;
         canvas.drawCircle(x, y, 30, mPaint);
         canvas.drawText("" + num, x, y, textPaint);
     }
