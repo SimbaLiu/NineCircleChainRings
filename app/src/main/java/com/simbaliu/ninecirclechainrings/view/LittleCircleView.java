@@ -50,7 +50,6 @@ public class LittleCircleView extends TextView {
     private Context context;
     private View orginView;
     private boolean isSmall = false;
-    private boolean isMiddle = false;
 
     public LittleCircleView(Context context, View target) {
         super(context);
@@ -65,16 +64,6 @@ public class LittleCircleView extends TextView {
         this.orginView = target;
         this.isSmall = small;
         setSizeContent(4);
-        init();
-    }
-
-    public LittleCircleView(Context context, View target, boolean small, boolean middle) {
-        super(context);
-        this.context = context;
-        this.orginView = target;
-        this.isSmall = small;
-        this.isMiddle = middle;
-        setSizeContent(8);
         init();
     }
 
@@ -101,11 +90,7 @@ public class LittleCircleView extends TextView {
         this.colorBg = colorBg;
         pointBg = getDefaultBackground();
         if (isSmall) {
-            if (isMiddle) {
-                setBackgroundResource(R.drawable.shape_red_point_middle);
-            } else {
-                setBackgroundResource(R.drawable.shape_red_point_small);
-            }
+            setBackgroundResource(R.drawable.shape_red_point_small);
         } else {
             setBackgroundResource(R.drawable.shape_red_point);
         }
