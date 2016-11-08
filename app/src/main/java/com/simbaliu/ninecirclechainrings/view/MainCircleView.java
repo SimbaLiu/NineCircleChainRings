@@ -6,7 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.simbaliu.ninecirclechainrings.utils.CusConstants;
 
 /**
  * 四个大圆的View
@@ -45,15 +46,15 @@ public class MainCircleView extends View {
         super.dispatchDraw(canvas);
         int x = getMeasuredWidth() / 2;
         int y = getMeasuredHeight() / 2;
-        canvas.drawCircle(x, y, 200, mPaint);
-        canvas.drawCircle(x, y, 300, mPaint);
-        canvas.drawCircle(x, y, 400, mPaint);
-        canvas.drawCircle(x, y, 500, mPaint);
+        canvas.drawCircle(x, y, CusConstants.CIRCLE1, mPaint);
+        canvas.drawCircle(x, y, CusConstants.CIRCLE2, mPaint);
+        canvas.drawCircle(x, y, CusConstants.CIRCLE3, mPaint);
+        canvas.drawCircle(x, y, CusConstants.CIRCLE4, mPaint);
         //将画笔移到中心点
         canvas.translate(x, y);
         //画米字线
         for (int i = 0; i < 4; i++) {
-            canvas.drawLine(0, -500, 0, 500, mPaint);
+            canvas.drawLine(0, -CusConstants.CIRCLE4, 0, CusConstants.CIRCLE4, mPaint);
             canvas.rotate(45);
         }
 

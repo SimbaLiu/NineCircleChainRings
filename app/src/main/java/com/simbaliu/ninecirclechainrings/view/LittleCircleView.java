@@ -23,7 +23,7 @@ import com.simbaliu.ninecirclechainrings.R;
 public class LittleCircleView extends TextView {
     /* 设置默认的对齐排列方式 */
     private static final int DEFAULT_MARGIN_DIP = 1;
-    private static final int DEFAULT_PADDING_DIP = 10;
+    private static final int DEFAULT_PADDING_DIP = 1;
     private int pointMargin;
     private int paddingPixels;
 
@@ -36,10 +36,6 @@ public class LittleCircleView extends TextView {
     private int colorBg = 0xffff0033;
     /* 内容颜色 */
     private int colorContent = Color.WHITE;
-    /* 显示左右位置 */
-    private int left_right = Gravity.RIGHT;
-    /* 显示上下位置 */
-    private int top_bottom = Gravity.TOP;
     /* 显示大小 */
     private int sizeContent = 12;
     /* 背景大小 */
@@ -50,6 +46,7 @@ public class LittleCircleView extends TextView {
     private Context context;
     private View orginView;
     private boolean isSmall = false;
+    private int left, top;
 
     public LittleCircleView(Context context, View target) {
         super(context);
@@ -96,11 +93,18 @@ public class LittleCircleView extends TextView {
         }
     }
 
-    /* 设置显示位置，默认为右上 */
-    public void setPosition(int left_right, int top_bottom) {
-        this.left_right = left_right;
-        this.top_bottom = top_bottom;
-        setPositionParams(left_right, top_bottom);
+    public void setPosition(int left, int top) {
+        this.left = left;
+        this.top = top;
+        setPositionParams(left, top);
+    }
+
+    /* 设置显示位置参数 */
+    private void setPositionParams(int left, int top) {
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.setMargins(left - dipToPixels(16), top - dipToPixels(16), 0, 0);
+        setLayoutParams(params);
     }
 
     /* 设置内容字体大小，默认为15 */
@@ -133,53 +137,18 @@ public class LittleCircleView extends TextView {
         return shap;
     }
 
-    /* 设置显示位置参数 */
-    private void setPositionParams(int left_right, int top_bottom) {
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        params.gravity = left_right | top_bottom;
-
-        switch (left_right) {
-            case Gravity.LEFT:
-                switch (top_bottom) {
-                    case Gravity.TOP:
-                        params.setMargins(pointMargin, pointMargin, 0, 0);
-                        break;
-                    case Gravity.BOTTOM:
-                        params.setMargins(pointMargin, 0, 0, pointMargin);
-                    default:
-                        break;
-                }
-            case Gravity.RIGHT:
-                switch (top_bottom) {
-                    case Gravity.TOP:
-                        params.setMargins(0, pointMargin, pointMargin, 0);
-                        break;
-                    case Gravity.BOTTOM:
-                        params.setMargins(0, 0, pointMargin, pointMargin);
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-        }
-
-        setLayoutParams(params);
-    }
-
     /* 初始化 */
     private void init() {
         pointMargin = dipToPixels(DEFAULT_MARGIN_DIP);
 
         setTypeface(Typeface.DEFAULT_BOLD);
         paddingPixels = dipToPixels(DEFAULT_PADDING_DIP);
-        setPadding(paddingPixels * 3, 0, paddingPixels * 3, 0);
+        setPadding(0, 0, 0, 0);
 
         setContent(content);
         setColorContent(colorContent);
         setSizeContent(sizeContent);
-        setPosition(left_right, top_bottom);
+        setPosition(left, top);
         setColorBg(colorBg);
         setGravity(Gravity.CENTER);
 
