@@ -2,12 +2,12 @@ package com.simbaliu.ninecirclechainrings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.simbaliu.ninecirclechainrings.utils.CusConstants;
 import com.simbaliu.ninecirclechainrings.utils.ScreenUtils;
-import com.simbaliu.ninecirclechainrings.view.LittleCircleView;
+import com.simbaliu.ninecirclechainrings.view.BallView;
 import com.simbaliu.ninecirclechainrings.view.MainCircleView;
 
 import butterknife.BindView;
@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
     private int appWidth, appHeight;
     private int ruler;
     private int numPosition17[][] = new int[][]{};
+    private boolean checkState[] = new boolean[33];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,6 @@ public class MainActivity extends Activity {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(appWidth, appWidth);
         mainCircleView.setLayoutParams(params);
         ruler = appWidth / 2;
-        Log.e("tag", "ruler-->" + ruler);
     }
 
     /**
@@ -97,9 +97,21 @@ public class MainActivity extends Activity {
      */
     private void initView() {
         for (int i = 0; i < 33; i++) {
-            LittleCircleView littleCircleView = new LittleCircleView(this, mainCircleView);
-            littleCircleView.setContent(i + 1);
-            littleCircleView.setPosition(numPosition17[i][0], numPosition17[i][1]);
+            final BallView ballView = new BallView(this, mainCircleView);
+            ballView.setContent(i + 1);
+            final int finalI = i;
+            ballView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkState[finalI] = !checkState[finalI];
+                    if (checkState[finalI]) {
+                        ballView.setBackgroundResource(R.drawable.shape_red_point_checked);
+                    } else {
+                        ballView.setBackgroundResource(R.drawable.shape_red_point_unchecked);
+                    }
+                }
+            });
+            ballView.setPosition(numPosition17[i][0], numPosition17[i][1]);
         }
     }
 

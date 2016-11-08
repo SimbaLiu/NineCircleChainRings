@@ -20,7 +20,7 @@ import com.simbaliu.ninecirclechainrings.R;
 /**
  * 未读消息空间，可自由设置大小、颜色、位置
  */
-public class LittleCircleView extends TextView {
+public class BallView extends TextView {
     /* 设置默认的对齐排列方式 */
     private static final int DEFAULT_MARGIN_DIP = 1;
     private static final int DEFAULT_PADDING_DIP = 1;
@@ -48,14 +48,14 @@ public class LittleCircleView extends TextView {
     private boolean isSmall = false;
     private int left, top;
 
-    public LittleCircleView(Context context, View target) {
+    public BallView(Context context, View target) {
         super(context);
         this.context = context;
         this.orginView = target;
         init();
     }
 
-    public LittleCircleView(Context context, View target, boolean small) {
+    public BallView(Context context, View target, boolean small) {
         super(context);
         this.context = context;
         this.orginView = target;
@@ -89,7 +89,7 @@ public class LittleCircleView extends TextView {
         if (isSmall) {
             setBackgroundResource(R.drawable.shape_red_point_small);
         } else {
-            setBackgroundResource(R.drawable.shape_red_point);
+            setBackgroundResource(R.drawable.shape_red_point_unchecked);
         }
     }
 
@@ -182,4 +182,5 @@ public class LittleCircleView extends TextView {
                 r.getDisplayMetrics());
         return (int) px;
     }
+
 }
