@@ -2,7 +2,6 @@ package com.simbaliu.ninecirclechainrings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.simbaliu.ninecirclechainrings.view.LittleCircleView;
 import com.simbaliu.ninecirclechainrings.view.MainCircleView;
@@ -25,14 +24,10 @@ public class MainActivity extends Activity {
     }
 
     private void initView() {
-        mainCircleView = new MainCircleView(this);
-        for (int i = 1; i < 4; i++) {
-            LittleCircleView littleCircleView = new LittleCircleView(this);
-            littleCircleView.setCoordinateAndNum(i * 10, i * 10, i);
-            mainCircleView.addView(littleCircleView);
+        for (int i = 1; i < 2; i++) {
+            LittleCircleView littleCircleView = new LittleCircleView(this, mainCircleView);
+            littleCircleView.setContent(i);
         }
-        mainCircleView.invalidate();
-        Log.e("initView", "viewCount-->" + mainCircleView.getChildCount());
     }
 
 }
