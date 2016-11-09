@@ -44,23 +44,13 @@ public class BallView extends TextView {
     private boolean isShown;
 
     private Context context;
-    private View orginView;
-    private boolean isSmall = false;
+    private ViewGroup orginView;
     private int left, top;
 
-    public BallView(Context context, View target) {
+    public BallView(Context context, ViewGroup target) {
         super(context);
         this.context = context;
         this.orginView = target;
-        init();
-    }
-
-    public BallView(Context context, View target, boolean small) {
-        super(context);
-        this.context = context;
-        this.orginView = target;
-        this.isSmall = small;
-        setSizeContent(4);
         init();
     }
 
@@ -86,11 +76,7 @@ public class BallView extends TextView {
     public void setColorBg(int colorBg) {
         this.colorBg = colorBg;
         pointBg = getDefaultBackground();
-        if (isSmall) {
-            setBackgroundResource(R.drawable.shape_red_point_small);
-        } else {
-            setBackgroundResource(R.drawable.shape_red_point_unchecked);
-        }
+        setBackgroundResource(R.drawable.shape_red_point_unchecked);
     }
 
     public void setPosition(int left, int top) {
@@ -154,9 +140,10 @@ public class BallView extends TextView {
 
         isShown = false;
 
-        if (this.orginView != null) {
-            restartDraw(this.orginView);
-        }
+        orginView.addView(this);
+//        if (this.orginView != null) {
+//            restartDraw(this.orginView);
+//        }
     }
 
     /* 将target从父view中去掉，取而代之为一个包含target和point的framLayout */
@@ -170,6 +157,7 @@ public class BallView extends TextView {
 
         viewGroup.removeView(target);
         viewGroup.addView(framLayout, index, lp);
+        framLayout.removeAllViews();
         framLayout.addView(target);
         framLayout.addView(this);
 
